@@ -2,13 +2,17 @@ import Container from "@/components/Container";
 import Project from "@/components/Project";
 import { Metadata } from "next";
 import { cn } from "@/lib/utils";
+import { getAllBlogs } from "../libs/utils";
 
 export const metadata: Metadata = {
   title: "All Blogs",
   description: "Read all blogs written by Hans Landa",
 };
 
-const page = () => {
+const  page = async () => {
+
+  const allBlogs = await getAllBlogs();
+  console.log(allBlogs);
   return (
     <div className="flex min-h-screen justify-start items-start ">
       <Container className="min-h-screen p-4 md:pt-20 md:pb-10">
