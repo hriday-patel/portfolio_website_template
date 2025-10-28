@@ -6,16 +6,22 @@ import fs from "fs/promises";
 import matter from "gray-matter";
 import path from "path";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const singleBlog = await getBlog(params.slug);
-  const { data } = matter(singleBlog);
+  const { slug } = await params;
+  const {data} = await getPage(slug);
+  if(!data){
+    return {
+      title: "Blog Not Found",
+      description: "The blog you are looking for does not exist.",
+    }
+  }
   return {
     title: data.title,
     description: data.description,
@@ -26,9 +32,13 @@ export async function generateMetadata({
   };
 }
 
-export async function getPage(slug: string){
+export async function getPage(slug: string) {
   const singleBlog = await getBlog(slug);
-  return singleBlog;
+  if(!singleBlog){
+    notFound();
+  }
+  const { content, data } = matter(singleBlog);
+  return { content, data };
 }
 
 export async function generateStaticParams() {
@@ -37,17 +47,18 @@ export async function generateStaticParams() {
   return files.map((file) => {
     return {
       slug: file.replace(".mdx", ""),
-    }
-  })
+    };
+  });
 }
 
-const page = async ({ params }: { params: { slug: string } }) => {
-  const singleBlog = await getPage(params.slug);
+const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
+  const {content} = await getPage(slug);
   return (
     <div className="flex min-h-screen justify-start items-start ">
       <Container className="min-h-screen p-4 md:pt-20 md:pb-10">
         <div className="prose prose-neutral dark:prose-invert dark:prose-pre:bg-primary-dark dark:prose-code:bg-linear-180 dark:prose-code:from-pink-400 dark:prose-code:to-purple-400 dark:prose-code:bg-clip-text dark:prose-code:text-transparent max-w-none prose-code:bg-linear-180 prose-code:from-red-400 prose-code:to-blue-400 prose-code:bg-clip-text prose-code:text-transparent">
-          <MDXRemote source={singleBlog} />
+          <MDXRemote source={content} />
         </div>
       </Container>
     </div>
