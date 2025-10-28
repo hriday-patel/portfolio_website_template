@@ -11,7 +11,15 @@ export function cn(...args: ClassValue[]){
     return twMerge(clsx(args));
 }
 
-
+export function formateDate(date: string){
+    const fromatedDate = new Date(date);
+    return fromatedDate.toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+}
 
 // Don't worry this is me just using tailwindMerge and clsx both together. This is not necessary but rather optional so that when writing different types of classnames based on conditions or not, it looks clean and minimal. 
 

@@ -23,7 +23,7 @@ export async function getAllBlogs() {
     files.map(async (file) => {
       const slug = file.replace(".mdx", "");
       const frontmatter = await getFrontmatterBySlug(slug);
-      return { slug, ...frontmatter };
+      return { slug, frontmatter };
     })
   );
   return blogs;
