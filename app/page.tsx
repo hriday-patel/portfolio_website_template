@@ -1,11 +1,12 @@
 import Container from "@/components/Container";
+import Landingblogs from "@/components/Landingblogs";
 import Project from "@/components/Project"; 
 import { cn } from "@/lib/utils";
 
 const page = () => {
   return (
     <div className="flex min-h-screen justify-start items-start ">
-      <Container className="min-h-[200vh] p-4 md:pt-20 md:pb-10">
+      <Container className="min-h-screen p-4 md:pt-20 md:pb-10">
         <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-primary-dark dark:text-primary-light">
           Hans Landa
         </h1>
@@ -14,6 +15,7 @@ const page = () => {
           efficient and scalable efficient systems!
         </p>
         <Project />
+        <Landingblogs />
       </Container>
     </div>
   );

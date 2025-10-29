@@ -5,7 +5,7 @@ import { Playfair } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import { desc } from "motion/react-client";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 const playfair = Playfair({
   subsets: ["latin"],

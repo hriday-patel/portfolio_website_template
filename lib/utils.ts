@@ -6,10 +6,13 @@ import fs from 'fs/promises';
 import path from "path";
 import React from "react";
 import matter from "gray-matter";
+import { Playfair } from "next/font/google";
 
 export function cn(...args: ClassValue[]){
     return twMerge(clsx(args));
 }
+
+export const playfair = Playfair({ subsets: ["latin"], weight: ["400", "700"] });
 
 export function formateDate(date: string){
     const fromatedDate = new Date(date);

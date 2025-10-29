@@ -3,10 +3,10 @@ import Project from "@/components/Project";
 import { Metadata } from "next";
 import { cn, formateDate } from "@/lib/utils";
 import { getAllBlogs } from "../libs/utils";
-import Link from "next/link";
-import { Playfair } from "next/font/google";
+import { Link } from "next-view-transitions";
+import { playfair } from "@/lib/utils";
 
-const playfair = Playfair({ subsets: ["latin"], weight: ["400", "700"] });
+
 
 export const metadata: Metadata = {
   title: "All Blogs",
@@ -15,7 +15,6 @@ export const metadata: Metadata = {
 
 const page = async () => {
   const allBlogs = await getAllBlogs();
-  console.log(allBlogs);
   return (
     <div className="flex min-h-screen justify-start items-start ">
       <Container className="min-h-screen p-4 md:pt-20 md:pb-10">
@@ -30,7 +29,7 @@ const page = async () => {
           {allBlogs.map((blog, idx) => (
             <Link href={`/blog/${blog.slug}`} key={idx}>
               <div className="flex justify-between items-center">
-                <h2 className="text-base font-semibold tracking-tight text-secondary-dark dark:text-primary-light">
+                <h2 className="text-base font-semibold tracking-tight text-primary-dark dark:text-primary-light">
                   {blog.frontmatter?.title}
                 </h2>
                 <p
@@ -42,7 +41,7 @@ const page = async () => {
                   {formateDate(blog.frontmatter?.date)}
                 </p>
               </div>
-              <p className="text-sm pt-2.5 text-secondary-dark dark:text-secondary-light max-w-lg">
+              <p className="text-sm pt-2.5 text-secondary-dark dark:text-secondary-light max-w-lg line-clamp-2">
                 {blog.frontmatter?.description}
               </p>
             </Link>
