@@ -1,4 +1,6 @@
 @import "tailwindcss";
+
+
 @plugin "@tailwindcss/typography";
 
 @theme {
@@ -7,5 +9,4 @@
   --color-secondary-dark: var(--color-neutral-500);
   --color-secondary-light: var(--color-neutral-400);
 }
-
 

@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import { desc } from "motion/react-client";
 import { Link } from "next-view-transitions";
+import Paragraph from "./Paragraph";
 
 const playfair = Playfair({
   subsets: ["latin"],
@@ -41,10 +42,10 @@ const Project = () => {
   ];
   return (
     <div className="py-10">
-      <p className="text-base pt-4 text-secondary-dark dark:text-secondary-light max-w-lg">
+      <Paragraph>
         I love building and managing projects that solve real-world problems and
         impact millions of users. Here are some of my recent works:
-      </p>
+      </Paragraph>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-10 w-full">
         {projects.map((project, idx) => (
           <motion.div
@@ -68,7 +69,11 @@ const Project = () => {
             className="overflow-hidden group rounded-xl"
             key={idx}
           >
-            <Link className="cursor-default" href={project.href} target="_blank">
+            <Link
+              className="cursor-default"
+              href={project.href}
+              target="_blank"
+            >
               <Image
                 className="w-full hover:scale-[1.02] group-hover:blur-[2px] transition duration-200 h-auto aspect-auto rounded-xl object-cover"
                 src={project.src}

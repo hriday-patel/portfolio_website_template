@@ -1,22 +1,18 @@
 import Container from "@/components/Container";
 import Heading from "@/components/Heading";
-import Landingblogs from "@/components/Landingblogs";
 import Paragraph from "@/components/Paragraph";
 import Project from "@/components/Project";
-import { cn } from "@/lib/utils";
-
 
 const page = () => {
   return (
-    <div className="flex min-h-screen justify-start items-start ">
+    <div className="flex min-h-screen justify-start items-start">
       <Container className="min-h-screen p-4 md:pt-20 md:pb-10">
-        <Heading>Hans Landa</Heading>
+        <Heading>~ My Projects</Heading>
         <Paragraph>
-          Hi! I am a software developer at Google who is passionate to build
-          efficient and scalable efficient systems!
+          Let me introduce you to some of the projects that I've been working
+          on.
         </Paragraph>
         <Project />
-        <Landingblogs />
       </Container>
     </div>
   );
