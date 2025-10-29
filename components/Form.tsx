@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -18,8 +19,26 @@ const Form = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { name, email, message } = formData;
+    if (!(name && email && message)) {
+      toast.error("Please fill in all the fields.");
+      return;
+    }
+    const response = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 2000);
+    });
+    response.then(() => {
+      toast.success("Form submitted successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    });
   };
   return (
     <form
@@ -55,13 +74,13 @@ const Form = () => {
             className={cn(
               "px-2 py-2 pb-1 text-sm tracking-normal",
               "text-secondary-dark dark:text-secondary-light",
-              "border border-primary-dark dark:border-primary-light rounded-md",
-              "focus:ring focus:ring-primary-dark dark:focus:ring-primary-light focus:outline-none",
+              "border border-primary-dark/10 dark:border-primary-light/10 rounded-md",
+              "focus:ring-2 focus:ring-primary-dark dark:focus:ring-primary-light focus:outline-none",
               "transition-all duration-500 ease-in-out z-10 w-full",
               "group-focus-within:pt-4",
-              formData.name && "pt-4"
+              formData.name && "pt-4",
+              "shadow-2xl"
             )}
-            required
           />
         </div>
       </div>
@@ -94,13 +113,13 @@ const Form = () => {
             className={cn(
               "px-2 py-2 pb-1 text-sm tracking-normal",
               "text-secondary-dark dark:text-secondary-light",
-              "border border-primary-dark dark:border-primary-light rounded-md",
-              "focus:ring focus:ring-primary-dark dark:focus:ring-primary-light focus:outline-none",
+              "border border-primary-dark/10 dark:border-primary-light/10 rounded-md",
+              "focus:ring-2 focus:ring-primary-dark dark:focus:ring-primary-light focus:outline-none",
               "transition-all duration-500 ease-in-out z-10 w-full",
               "group-focus-within:pt-4",
-              formData.email && "pt-4"
+              formData.email && "pt-4",
+              "shadow-2xl"
             )}
-            required
           />
         </div>
       </div>
@@ -123,13 +142,20 @@ const Form = () => {
           className={cn(
             "px-2 py-1 text-sm tracking-normal",
             "text-secondary-dark dark:text-secondary-light",
-            "border border-primary-dark dark:border-primary-light rounded-md",
-            "focus:ring focus:ring-primary-dark dark:focus:ring-primary-light focus:outline-none",
-            "transition duration-500 ease-linear resize-none"
+            "border border-primary-dark/10 dark:border-primary-light/10 rounded-md",
+            "focus:ring-2 focus:ring-primary-dark dark:focus:ring-primary-light focus:outline-none",
+            "transition duration-500 ease-linear resize-none",
+            "shadow-2xl"
           )}
-          required
         />
       </div>
+      <button
+        type="submit"
+        className="relative group w-1/2 mx-auto text-center py-2 rounded-md bg-primary-dark dark:bg-primary-light text-white dark:hover:bg-primary-light/80 dark:text-black transition ease-in-out duration-300"
+      >
+        <span className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out inset-x-0 bottom-0 w-3/4 mx-auto bg-linear-to-r from-transparent via-green-500 to-transparent h-1 blur-sm dark:group-hover:opacity-0"></span>
+        Submit
+      </button>
     </form>
   );
 };
