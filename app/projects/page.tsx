@@ -2,7 +2,7 @@ import Container from "@/components/Container";
 import Heading from "@/components/Heading";
 import Paragraph from "@/components/Paragraph";
 import Project from "@/components/Project";
-
+import Projects from "@/Projects.json";
 const page = () => {
   return (
     <div className="flex min-h-screen justify-start items-start">
@@ -12,7 +12,7 @@ const page = () => {
           Let me introduce you to some of the projects that I've been working
           on.
         </Paragraph>
-        <Project />
+        <Project projects={Projects}/>
       </Container>
     </div>
   );

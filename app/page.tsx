@@ -3,7 +3,9 @@ import Heading from "@/components/Heading";
 import Landingblogs from "@/components/Landingblogs";
 import Paragraph from "@/components/Paragraph";
 import Project from "@/components/Project";
+import Testimonials from "@/components/Testimonials";
 import { cn } from "@/lib/utils";
+import projects from "@/Projects.json";
 
 
 const page = () => {
@@ -15,8 +17,9 @@ const page = () => {
           Hi! I am a software developer at Google who is passionate to build
           efficient and scalable efficient systems!
         </Paragraph>
-        <Project />
+        <Project projects={projects}/>
         <Landingblogs />
+        <Testimonials />
       </Container>
     </div>
   );

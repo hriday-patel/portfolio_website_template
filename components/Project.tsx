@@ -4,50 +4,46 @@ import Image from "next/image";
 import { Playfair } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
-import { desc } from "motion/react-client";
 import { Link } from "next-view-transitions";
 import Paragraph from "./Paragraph";
+import { usePathname } from "next/navigation";
 
 const playfair = Playfair({
   subsets: ["latin"],
   weight: ["400", "700", "900"],
 });
 
-const Project = () => {
-  const projects = [
-    {
-      title: "Stipple - A Social Media App",
-      src: "/project1.png",
-      href: "#",
-      desc: "A social media application that allows users to connect, share content, and engage with a community through posts, comments, and likes.",
-    },
-    {
-      title: "Meow - A Chat Application",
-      src: "/project2.png",
-      href: "#",
-      desc: "A real-time chat application enabling users to communicate instantly through text messages, multimedia sharing, and group conversations.",
-    },
-    {
-      title: "Stock Management System",
-      src: "/project3.png",
-      href: "#",
-      desc: "A comprehensive stock management system designed to track inventory levels, manage orders, and streamline supply chain operations for businesses.",
-    },
-    {
-      title: "Travel Blog Website",
-      src: "/project4.png",
-      href: "#",
-      desc: "A travel blog website where users can share their travel experiences, tips, and photos, as well as discover new destinations and itineraries.",
-    },
-  ];
+type ProjectType = {
+  title: string;
+  desc: string;
+  href: string;
+  src: string;
+};
+
+const Project = ({ projects }: { projects: ProjectType[] }) => {
+  let projectsArr;
+  let grid;
+  const routing = usePathname();
+  if (routing?.includes("projects")) {
+    projectsArr = projects;
+    grid = "grid-cols-1 md:grid-cols-2";
+  } else {
+    projectsArr = projects.slice(0, 3);
+    grid = "grid-cols-1 md:grid-cols-3";
+  }
   return (
     <div className="py-10">
       <Paragraph>
         I love building and managing projects that solve real-world problems and
         impact millions of users. Here are some of my recent works:
       </Paragraph>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-10 w-full">
-        {projects.map((project, idx) => (
+      <div
+        className={cn(
+          "grid grid-cols-1 md:grid-cols-2 gap-4 py-10 w-full",
+          grid
+        )}
+      >
+        {projectsArr.map((project, idx) => (
           <motion.div
             initial={{
               opacity: 0,
